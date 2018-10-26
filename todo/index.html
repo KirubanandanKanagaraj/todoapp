@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>TODO List</title>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+                            crossorigin="anonymous">
+        <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/angular-animate.min.js"></script>
+        <script type="text/javascript" src="js/ui-bootstrap-3.0.3.js"></script>
+        <script type="text/javascript" src="js/ngStorage.js"></script>
+        <script type="text/javascript" src="js/todoapp.js"></script>
+        <script type="text/javascript" src="js/todoController.js"></script>
+        <script type="text/javascript" src="js/todoService.js"></script>
+    </head>
+    <body ng-app="todoapp">
+        <main ng-controller="todoController">
+            <nav>
+
+            </nav>
+            <article>
+                <section class="item-creator">
+                    <div class="col-12">
+                        <h3>Create Todo List</h3>
+                        <form name="formTodoList" class="formTodoList col-xl-6 col-lg-8 col-md-10 col-sm-12">
+                            <div class="card">
+                                <div class="col-12">
+                                    <input type="text" class="" aria-required="true" placeholder="Enter todo list name" required="required" ng-model="newListItemName" />
+                                    <div class="area-form-submit">
+                                        <button type="button" class="btn btn-primary" ng-click="createTodoList()">Create</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="data-disp-area">
+                    <div class="col-12">
+                        <h3>List Items</h3>
+                        <div class="item-wrapper col-12" ng-repeat="item in listItems">
+                            <div class="row">
+                                <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+                                    <div ng-class="item.status ? 'card item-holder done' : 'card item-holder'">
+                                        <div class="opts">
+                                            <a class="icon-edit-itemlist" ng-click="openItemEditor(item, $index)" href="javascript:"><i class="fa fa-pencil"></i></a>
+                                            <a class="icon-delete-itemlist" ng-click="deleteItemList(item, $index)" href="javascript:"><i class="fa fa-trash"></i></a>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12">
+                                                <p class="order-num">{{$index + 1}}</p>
+                                            </div>
+                                            <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12">
+                                                <div class="title" ng-click="openItemEditor(item, $index)">
+                                                    {{item.name}}
+                                                </div>
+                                                <div class="listitem-status">
+                                                    Status: 
+                                                    <label>
+                                                        <input type="checkbox" name="completed" ng-model="item.status">
+                                                        Completed
+                                                    </label>
+                                                </div>
+                                                <div class="list-desc">
+                                                    <p>{{item.description}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <script type="text/ng-template" id="editListItemTemplate.html">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="modal-title">Edit List</h3>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <div class="col-12">
+                            <div class="form-row">
+                                <label class="col-12 form-check-label">Title</label>
+                                <input ng-model="$ctrl.itemData.name" type="text" value="" calss="fomr-control">
+                            </div>
+                            <div class="form-row">
+                                <label class="col-12 form-check-label">Status</label>
+                                <input ng-model="$ctrl.itemData.status" type="checkbox" value="" calss="fomr-control"> Completed
+                            </div>
+                            <div class="form-row">
+                                <label class="col-12 form-check-label">Description</label>
+                                <textarea ng-model="$ctrl.itemData.description" calss="fomr-control"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <label class="col-12 form-check-label">Order</label>
+                                <input ng-model="$ctrl.itemData.order" type="number" calss="fomr-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-ng-click="$ctrl.cancelUserSub()">Save</button>
+                    </div>
+                </script>
+
+            </article>
+        </main>
+    </body>
+</html>
